@@ -96,3 +96,28 @@
  'org-babel-load-languages
  '(;; other Babel languages
    (plantuml . t)))
+
+;; Setting personal org-capture templates
+(setq org-capture-templates '(("t" "tasks")
+                              ("tw" "work task" entry
+                               (file+headline "~/Org/tasks.org" "Work")
+                               "* TODO %?" :empty-lines 1)
+                              ("tp" "personal task" entry
+                               (file+headline "~/Org/tasks.org" "Personal")
+                               "* TODO %?" :empty-lines 1)
+                              ("c" "code")
+                              ("cw" "personal code todo" entry
+                               (file+headline "~/Org/tasks.org" "Work Code")
+                               "* TODO %?\n  %i\n  %a")
+                              ("cp" "personal code" entry
+                               (file+headline "~/Org/personal/tasks.org" "Personal Code")
+                               "* TODO %?\n  %i\n  %a")
+                              ("n" "notes" entry
+                               (file "~/Org/notes/notes.org")
+                               "* %?" :empty-lines 1)))
+(setq org-agenda-files "~/Org/")
+
+;; Setting todos and priorities to my liking
+(setq org-todo-keywords '((sequence "TODO(t)" "INPROGRESS(p)" "ONHOLD(h)" "|" "DONE(d)" "CANCELED(c)")
+ (sequence "[ ](T)" "[-](S)" "[?](W)" "|" "[X](D)")
+ (sequence "|" "OKAY(o)" "YES(y)" "NO(n)")))
