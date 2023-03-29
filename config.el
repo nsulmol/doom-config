@@ -106,7 +106,7 @@
                                (file+headline "~/Org/tasks.org" "Personal")
                                "* TODO %?" :empty-lines 1)
                               ("c" "code")
-                              ("cw" "personal code todo" entry
+                              ("cw" "work code todo" entry
                                (file+headline "~/Org/tasks.org" "Work Code")
                                "* TODO %?\n  %i\n  %a")
                               ("cp" "personal code" entry
@@ -115,7 +115,7 @@
                               ("n" "notes" entry
                                (file "~/Org/notes/notes.org")
                                "* %?" :empty-lines 1)))
-(setq org-agenda-files "~/Org/")
+(setq org-agenda-files '("~/Org/"))
 
 ;; Setting todos and priorities to my liking
 (setq org-todo-keywords '((sequence "TODO(t)" "INPROGRESS(p)" "ONHOLD(h)" "|" "DONE(d)" "CANCELED(c)")
