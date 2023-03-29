@@ -81,3 +81,15 @@
 
 ;; Maximize emacs on startup
 (add-to-list 'initial-frame-alist '(fullscreen . maximized))
+
+;; Org Settings ;;
+
+;; Include plant uml path for org babel
+(setq org-plantuml-exec-mode 'plantuml
+      org-plantuml-executable-path "/usr/bin/plantuml")
+
+;; active Org-babel languages
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '(;; other Babel languages
+   (plantuml . t)))
