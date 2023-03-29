@@ -82,6 +82,9 @@
 ;; Maximize emacs on startup
 (add-to-list 'initial-frame-alist '(fullscreen . maximized))
 
+;; Setting visual-line-mode to true everywhere
+(+global-word-wrap-mode +1)
+
 ;; Org Settings ;;
 
 ;; Include plant uml path for org babel
