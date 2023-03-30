@@ -121,3 +121,15 @@
 (setq org-todo-keywords '((sequence "TODO(t)" "INPROGRESS(p)" "ONHOLD(h)" "|" "DONE(d)" "CANCELED(c)")
  (sequence "[ ](T)" "[-](S)" "[?](W)" "|" "[X](D)")
  (sequence "|" "OKAY(o)" "YES(y)" "NO(n)")))
+
+;; which-key changes (to allow paging for key bindings) ;;
+
+;; must switch from minibuffer for paging to reliably work
+(setq which-key-side-window-location 'bottom)
+
+;; increasing max height to minimize cases we may need to page
+(setq which-key-side-window-max-height 0.5)
+
+;; explicitly allow paging for binding key top-menu
+(setq which-key-paging-key "C-h")
+(setq which-key-paging-prefixes '("C-h b t" "SPC h b t"))
