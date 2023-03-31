@@ -132,4 +132,4 @@
 
 ;; explicitly allow paging for binding key top-menu
 (setq which-key-paging-key "C-h")
-(setq which-key-paging-prefixes '("C-h b t" "SPC h b t"))
+(setq which-key-paging-prefixes '("C-h b t"))
