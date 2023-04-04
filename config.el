@@ -95,7 +95,13 @@
 (org-babel-do-load-languages
  'org-babel-load-languages
  '(;; other Babel languages
-   (plantuml . t)))
+   (plantuml . t)
+   (sh . t)
+   (python . t)))
+
+;; Handle indentation properly in source blocks
+;; (for some reason, was set to t)
+(setq org-src-preserve-indentation nil)
 
 ;; Setting personal org-capture templates
 (setq org-capture-templates '(("t" "tasks")
