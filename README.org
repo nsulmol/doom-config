@@ -1,0 +1,26 @@
+#+title: Private doom-emacs config
+
+1. Clone Doom-Emacs into your config:
+   #+begin_src bash :results output
+     git clone --depth 1 https://github.com/doomemacs/doomemacs ~/.config/emacs
+   #+end_src
+
+2. Copy config:
+   #+begin_src bash :results output
+     ln -s ~/Code/doom-config ~/.config/doom
+   #+end_src
+
+3. Install and sync:
+   #+begin_src bash :results output
+     ~/.config/emacs/bin/doom install
+     ~/.config/emacs/bin/doom sync
+   #+end_src
+
+4. Run emacs for the first time.
+
+5. Setup vterm:
+   1. Install cmake and libtool
+      #+begin_src bash :results output
+        sudo apt-get install cmake libtool-bin libtool
+      #+end_src
+   2. Compile vterm in emacs: SPC o t -> select y to install
