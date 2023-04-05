@@ -139,3 +139,6 @@
 ;; explicitly allow paging for binding key top-menu
 (setq which-key-paging-key "C-h")
 (setq which-key-paging-prefixes '("C-h b t"))
+
+;; set image auto resize to fit width
+(setq image-auto-resize 3)
