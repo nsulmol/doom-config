@@ -142,3 +142,12 @@
 
 ;; set image auto resize to fit width
 (setq image-auto-resize 3)
+
+
+;; exec-path-from shell changes (so that we get all of our
+;; bashrc settings)
+(when (memq window-system '(mac ns x))
+  (exec-path-from-shell-initialize))
+
+(when (daemonp)
+  (exec-path-from-shell-initialize))
