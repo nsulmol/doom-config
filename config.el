@@ -97,7 +97,13 @@
  '(;; other Babel languages
    (plantuml . t)
    (sh . t)
-   (python . t)))
+   (python . t)
+   (jupyter . t)))
+
+;; Run all python codes in jupyter by default
+(after! org
+  (+org-babel-load-jupyter-h 'jupyter-python)
+  (org-babel-jupyter-override-src-block "python"))
 
 ;; Handle indentation properly in source blocks
 ;; (for some reason, was set to t)
