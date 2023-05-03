@@ -28,5 +28,5 @@
    #+begin_src bash :results :output
      sudo apt-get install sqlite3 # for org-roam
      sudo apt-get install plantuml # for creating diagrams in org mode
-     sudo apt-get install texlive # for equations, exporting org files
+     sudo apt-get install texlive texlive-latex-extra texlive-bibtex-extra # for equations, exporting org files
    #+end_src
