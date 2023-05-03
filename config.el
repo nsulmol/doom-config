@@ -85,54 +85,124 @@
 ;; Setting visual-line-mode to true everywhere
 (+global-word-wrap-mode +1)
 
+;; Citar settings
+  (setq org-cite-global-bibliography '("~/Org/braindump/biblio.bib"))
+  (setq org-cite-insert-processor 'citar)
+  (setq org-cite-activate-processor 'citar)
+  (setq citar-bibliography org-cite-global-bibliography)
+;; ebib settings
+  (setq ebib-preload-bib-files org-cite-global-bibliography)
+
+
+
 ;; Org Settings ;;
-
-;; Include plant uml path for org babel
-(setq org-plantuml-exec-mode 'plantuml
-      org-plantuml-executable-path "/usr/bin/plantuml")
-
-;; active Org-babel languages
-(org-babel-do-load-languages
- 'org-babel-load-languages
- '(;; other Babel languages
-   (plantuml . t)
-   (sh . t)
-   (python . t)
-   (jupyter . t)))
-
-;; Run all python codes in jupyter by default
 (after! org
+
+  ;; Include plant uml path for org babel
+  (setq org-plantuml-exec-mode 'plantuml
+        org-plantuml-executable-path "/usr/bin/plantuml")
+
+  ;; active Org-babel languages
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '(;; other Babel languages
+     (plantuml . t)
+     (sh . t)
+     (python . t)
+     (jupyter . t)))
+
+  ;; Run all python codes in jupyter by default
   (+org-babel-load-jupyter-h 'jupyter-python)
-  (org-babel-jupyter-override-src-block "python"))
+  (org-babel-jupyter-override-src-block "python")
 
-;; Handle indentation properly in source blocks
-;; (for some reason, was set to t)
-(setq org-src-preserve-indentation nil)
+  ;; Handle indentation properly in source blocks
+  ;; (for some reason, was set to t)
+  (setq org-src-preserve-indentation nil)
 
-;; Setting personal org-capture templates
-(setq org-capture-templates '(("t" "tasks")
-                              ("tw" "work task" entry
-                               (file+headline "~/Org/tasks.org" "Work")
-                               "* TODO %?" :empty-lines 1)
-                              ("tp" "personal task" entry
-                               (file+headline "~/Org/tasks.org" "Personal")
-                               "* TODO %?" :empty-lines 1)
-                              ("c" "code")
-                              ("cw" "work code todo" entry
-                               (file+headline "~/Org/tasks.org" "Work Code")
-                               "* TODO %?\n  %i\n  %a")
-                              ("cp" "personal code" entry
-                               (file+headline "~/Org/personal/tasks.org" "Personal Code")
-                               "* TODO %?\n  %i\n  %a")
-                              ("n" "notes" entry
-                               (file "~/Org/notes/notes.org")
-                               "* %?" :empty-lines 1)))
-(setq org-agenda-files '("~/Org/"))
+  ;; Setting personal org-capture templates
+  (setq org-capture-templates '(("t" "tasks")
+                                ("tw" "work task" entry
+                                 (file+headline "~/Org/tasks.org" "Work")
+                                 "* TODO %?" :empty-lines 1)
+                                ("tp" "personal task" entry
+                                 (file+headline "~/Org/tasks.org" "Personal")
+                                 "* TODO %?" :empty-lines 1)
+                                ("c" "code")
+                                ("cw" "work code todo" entry
+                                 (file+headline "~/Org/tasks.org" "Work Code")
+                                 "* TODO %?\n  %i\n  %a")
+                                ("cp" "personal code" entry
+                                 (file+headline "~/Org/tasks.org" "Personal Code")
+                                 "* TODO %?\n  %i\n  %a")
+                                ("n" "notes" entry
+                                 (file "~/Org/braindump/notes.org")
+                                 "* %?" :empty-lines 1)))
+  (setq org-agenda-files '("~/Org/"))
 
-;; Setting todos and priorities to my liking
-(setq org-todo-keywords '((sequence "TODO(t)" "INPROGRESS(p)" "ONHOLD(h)" "|" "DONE(d)" "CANCELED(c)")
- (sequence "[ ](T)" "[-](S)" "[?](W)" "|" "[X](D)")
- (sequence "|" "OKAY(o)" "YES(y)" "NO(n)")))
+  ;; Setting todos and priorities to my liking
+  (setq org-todo-keywords '((sequence "TODO(t)" "INPROGRESS(p)" "ONHOLD(h)" "|" "DONE(d)" "CANCELED(c)")
+                            (sequence "[ ](T)" "[-](S)" "[?](W)" "|" "[X](D)")
+                            (sequence "|" "OKAY(o)" "YES(y)" "NO(n)")))
+
+
+  ;; Org-Roam configuration (taken from[[https:://jethrokuan.github.io/org-roam-guide/][Jethro Kuan org-roam guide]])
+  (setq org-roam-directory (file-truename "~/Org/braindump/"))
+  (setq find-file-visit-truename t) ;; support symbolic links
+  (org-roam-db-autosync-mode t)
+
+
+  ;; NOTE: These settings do not appear to be working...
+  (setq org-roam-capture-templates
+        '(("m" "main" plain
+           "%?"
+           :if-new (file+head "main/${slug}.org"
+                              "#+title: ${title}\n")
+           :immediate-finish t
+           :unnarrowed t)
+          ("r" "reference" plain "%?"
+           :if-new
+           (file+head "reference/${title}.org" "#+title: ${title}\n")
+           :immediate-finish t
+           :unnarrowed t)
+          ("a" "article" plain "%?"
+           :if-new
+           (file+head "articles/${title}.org" "#+title: ${title}\n#+filetags: :article:\n")
+           :immediate-finish t
+           :unnarrowed t)))
+
+  (cl-defmethod org-roam-node-type ((node org-roam-node))
+    "Return the TYPE of NODE."
+    (condition-case nil
+        (file-name-nondirectory
+         (directory-file-name
+          (file-name-directory
+           (file-relative-name (org-roam-node-file node) org-roam-directory))))
+      (error "")))
+
+  (setq org-roam-node-display-template
+        (concat "${type:15} ${title:*} " (propertize "${tags:10}" 'face 'org-tag)))
+
+  (defun jethro/org-roam-node-from-cite (keys-entries)
+    (interactive (list (citar-select-ref :multiple nil :rebuild-cache t)))
+    (let ((title (citar--format-entry-no-widths (cdr keys-entries)
+                                                "${author editor} :: ${title}")))
+      (org-roam-capture- :templates
+                         '(("r" "reference" plain "%?" :if-new
+                            (file+head "reference/${citekey}.org"
+                                       ":PROPERTIES:
+:ROAM_REFS: [cite:@${citekey}]
+:END:
+#+title: ${title}\n")
+                            :immediate-finish t
+                            :unnarrowed t))
+                         :info (list :citekey (car keys-entries))
+                         :node (org-roam-node-create :title title)
+                         :props '(:finalize find-file))))
+
+  (defun jethro/tag-new-node-as-draft ()
+    (org-roam-tag-add '("draft")))
+  (add-hook 'org-roam-capture-new-node-hook #'jethro/tag-new-node-as-draft)
+  )
 
 ;; which-key changes (to allow paging for key bindings) ;;
 
@@ -157,3 +227,4 @@
 
 (when (daemonp)
   (exec-path-from-shell-initialize))
+

@@ -24,3 +24,9 @@
         sudo apt-get install cmake libtool-bin libtool
       #+end_src
    2. Compile vterm in emacs: SPC o t -> select y to install
+6. Install additional dependencies
+   #+begin_src bash :results :output
+     sudo apt-get install sqlite3 # for org-roam
+     sudo apt-get install plantuml # for creating diagrams in org mode
+     sudo apt-get install texlive # for equations, exporting org files
+   #+end_src
