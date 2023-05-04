@@ -29,4 +29,5 @@
      sudo apt-get install sqlite3 # for org-roam
      sudo apt-get install plantuml # for creating diagrams in org mode
      sudo apt-get install texlive texlive-latex-extra texlive-bibtex-extra # for equations, exporting org files
+     sudo apt-get install dvipng # for converting latex equations to images
    #+end_src
