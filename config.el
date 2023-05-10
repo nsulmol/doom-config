@@ -228,3 +228,25 @@
 (when (daemonp)
   (exec-path-from-shell-initialize))
 
+;; disable dap auto configure by default. if we want all the
+;; debugger info, we will manually call it.
+(after! lsp-mode
+  (setq lsp-enable-dap-auto-configure nil)
+  )
+
+;; dap-mode settings
+(after! dap-mode
+  (setq dap-python-debugger 'debugpy)
+  ;;(setq dap-auto-configure-mode nil)
+  ;; Feed the path to our venv to dap-mode. Note that dap-mode
+  ;; does not do this by default, and expects the user to do
+  ;; so via their preferred method.
+  (defun dap-python--pyenv-executable-find (command)
+    (with-venv (executable-find command)))
+  )
+
+;; This allows the breakpoints to be visible in dap-mode.
+(after! doom-themes-ext-treemacs
+  (with-eval-after-load 'treemacs
+    (remove-hook 'treemacs-mode-hook #'doom-themes-hide-fringes-maybe)
+    (advice-remove #'treemacs-select-window #'doom-themes-hide-fringes-maybe)))

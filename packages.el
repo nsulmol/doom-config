@@ -53,3 +53,4 @@
 
 ;; Install a package named "example" from ELPA, MELPA, or Emacsmirror
 (package! exec-path-from-shell)
+(package! with-venv) ;; to integrate poetry with dap-mode
