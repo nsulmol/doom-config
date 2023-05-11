@@ -183,7 +183,6 @@
 ;; dap-mode settings
 (after! dap-mode
   (setq dap-python-debugger 'debugpy)
-  ;;(setq dap-auto-configure-mode nil)
   ;; Feed the path to our venv to dap-mode. Note that dap-mode
   ;; does not do this by default, and expects the user to do
   ;; so via their preferred method.
