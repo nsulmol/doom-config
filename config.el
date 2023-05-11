@@ -149,6 +149,7 @@
   (setq org-roam-directory (file-truename "~/Org/braindump/"))
   (setq find-file-visit-truename t) ;; support symbolic links
   (org-roam-db-autosync-mode t)
+  )
 
 ;; which-key changes (to allow paging for key bindings) ;;
 
