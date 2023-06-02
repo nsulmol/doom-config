@@ -7,7 +7,7 @@
 
 2. Copy config:
    #+begin_src bash :results output
-     ln -s ~/Code/doom-config ~/.config/doom
+     ln -s ~/Code/personal/doom-config ~/.config/doom
    #+end_src
 
 3. Install and sync:
