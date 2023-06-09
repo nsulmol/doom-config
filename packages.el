@@ -54,3 +54,5 @@
 ;; Install a package named "example" from ELPA, MELPA, or Emacsmirror
 (package! exec-path-from-shell)
 (package! with-venv) ;; to integrate poetry with dap-mode
+
+(package! zmq) ;; not 100% sure I need this, but it resolved random segfaults with emacs-28
