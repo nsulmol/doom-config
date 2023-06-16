@@ -27,8 +27,10 @@
 6. Install additional dependencies
    #+begin_src bash :results :output
      sudo apt-get install sqlite3 # for org-roam
-     sudo apt-get install plantuml # for creating diagrams in org mode
      sudo apt-get install texlive texlive-latex-extra texlive-bibtex-extra # for equations, exporting org files
      sudo apt-get install dvipng # for converting latex equations to images
      sudo apt-get install nodejs    # prerequisites for dap-mode (debugger)
    #+end_src
+
+   - Ensure plantuml is set up:
+         There should be a plantuml in your dropbox. This config assumes you have the appropriate .jar files in ~/Code/others/plantuml/

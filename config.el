@@ -99,8 +99,8 @@
 (after! org
 
   ;; Include plant uml path for org babel
-  (setq org-plantuml-exec-mode 'plantuml
-        org-plantuml-executable-path "/usr/bin/plantuml")
+  (setq org-plantuml-exec-mode 'jar
+        org-plantuml-jar-path "~/Code/others/plantuml/plantuml.jar")
 
   ;; active Org-babel languages
   (org-babel-do-load-languages
@@ -110,6 +110,9 @@
      (sh . t)
      (python . t)
      (jupyter . t)))
+
+  ;; Default code blocks to be all hidden on startup
+  (setq org-hide-block-startup t)
 
   ;; Run all python codes in jupyter by default
   (+org-babel-load-jupyter-h 'jupyter-python)
