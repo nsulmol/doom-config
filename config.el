@@ -112,6 +112,7 @@
      (jupyter . t)))
 
   ;; Default code blocks to be all hidden on startup
+  (setq org-startup-folded t)
   (setq org-hide-block-startup t)
 
   ;; Run all python codes in jupyter by default
@@ -152,6 +153,10 @@
   (setq org-roam-directory (file-truename "~/Org/braindump/"))
   (setq find-file-visit-truename t) ;; support symbolic links
   (org-roam-db-autosync-mode t)
+
+  ;; Do not have a default image width for latex exporting
+  ;; (i.e. use the existing image size, or explici it).
+  (setq org-latex-image-default-width nil)
   )
 
 ;; which-key changes (to allow paging for key bindings) ;;
