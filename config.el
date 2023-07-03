@@ -204,3 +204,25 @@
   (with-eval-after-load 'treemacs
     (remove-hook 'treemacs-mode-hook #'doom-themes-hide-fringes-maybe)
     (advice-remove #'treemacs-select-window #'doom-themes-hide-fringes-maybe)))
+
+;; Venv activation settings
+(defun autoload-venv()
+  (setq venv-dirlookup-names (list ".venv" "venv"))
+  (let ((path (--first
+                (file-exists-p it)
+                (--map (concat (projectile-project-root) it)
+                        venv-dirlookup-names))))
+    (when path
+      (pyvenv-activate path))))
+
+(add-hook 'projectile-after-switch-project-hook #'autoload-venv)
+
+(defun pyvenv-minor-mode-on ()
+  "Turn on 'pyvenv-minor-mode' mode."
+  (interactive)
+  (pyvenv-minor-mode 1))
+
+(add-hook 'python-mode-hook 'pyvenv-minor-mode-on)
+
+;; Try to 'unignore' .venv, so we can search it
+(setq projectile-globally-unignored-directories (list "^\\.venv$"))
