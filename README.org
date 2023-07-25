@@ -2,7 +2,7 @@
 
 1. Clone Doom-Emacs into your config:
    #+begin_src bash :results output
-     git clone --depth 1 https://github.com/doomemacs/doomemacs ~/.config/emacs
+     git clone --depth 1 https://www.github.com/doomemacs/doomemacs ~/.config/emacs
    #+end_src
 
 2. Copy config:
@@ -34,3 +34,5 @@
 
    - Ensure plantuml is set up:
          There should be a plantuml in your dropbox. This config assumes you have the appropriate .jar files in ~/Code/others/plantuml/
+   - Install jupyter (required with this config on python...):
+        pip install jupyter
