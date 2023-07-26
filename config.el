@@ -197,6 +197,23 @@
   ;; so via their preferred method.
   (defun dap-python--pyenv-executable-find (command)
     (with-venv (executable-find command)))
+
+  ;; Update dap-mode debug templates to use projectile root
+  (defun update-debug-templates()
+    (message "Switching project, updating templates!")
+    (dap-register-debug-template "python" (list :name "python" :type "python"
+                                          :args ""
+                                          :cwd (projectile-project-root)
+                                          :module nil
+                                          :program nil :request "launch"))
+
+    (dap-register-debug-template "pytest" (list :name "pytest" :type "python"
+                                          :args ""
+                                          :cwd (projectile-project-root)
+                                          :module "pytest"
+                                          :program nil :request "launch")))
+    ;; Switch debug templates whenever we switch workspaces
+    (add-hook 'treemacs-switch-workspace-hook 'update-debug-templates)
   )
 
 ;; This allows the breakpoints to be visible in dap-mode.
