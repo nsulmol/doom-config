@@ -221,3 +221,8 @@
   (with-eval-after-load 'treemacs
     (remove-hook 'treemacs-mode-hook #'doom-themes-hide-fringes-maybe)
     (advice-remove #'treemacs-select-window #'doom-themes-hide-fringes-maybe)))
+
+;; Stop infinite-loop reloading from poetry
+(after! poetry
+  (remove-hook 'python-mode-hook #'poetry-tracking-mode)
+  (add-hook 'python-mode-hook 'poetry-track-virtualenv))
