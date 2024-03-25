@@ -90,6 +90,7 @@
   (setq org-cite-insert-processor 'citar)
   (setq org-cite-activate-processor 'citar)
   (setq citar-bibliography org-cite-global-bibliography)
+  (setq citar-notes-paths '("~/Org/braindump/references/"))
 ;; ebib settings
   (setq ebib-preload-bib-files org-cite-global-bibliography)
 
