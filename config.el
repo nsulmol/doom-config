@@ -94,6 +94,8 @@
 ;; ebib settings
   (setq ebib-preload-bib-files org-cite-global-bibliography)
 
+;; reftex settings bibliography (latex biblio)
+(setq reftex-default-bibliography "~/Org/braindump/biblio.bib")
 
 
 ;; Org Settings ;;
@@ -110,7 +112,9 @@
      (plantuml . t)
      (sh . t)
      (python . t)
-     (jupyter . t)))
+     (jupyter . t)
+     (toml . t)
+     (latex . t)))
 
   ;; Default code blocks to be all hidden on startup
   (setq org-startup-folded t)
@@ -158,6 +162,28 @@
   ;; Do not have a default image width for latex exporting
   ;; (i.e. use the existing image size, or explici it).
   (setq org-latex-image-default-width nil)
+
+  ;; Use listings backend for nice code in beamer.
+  ;;(setq org-latex-src-block-backend 'listings)
+
+  ;; Prevents getting an annoying error
+  ;;(autoload 'org-eldoc-get-src-lang "org-eldoc")
+
+
+  ;; Allow minted for code blocks exporting with org-mode
+  (require 'ox-latex)
+  (add-to-list 'org-latex-packages-alist '("" "minted"))
+  (setq org-latex-listings 'minted)
+
+  (setq org-latex-pdf-process
+        '("pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+          "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+          "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
+
+  ;; Use booktabs for table by default
+  (setq org-latex-tables-booktabs t)
+  ;; Center images by default
+  (setq org-latex-images-centered t)
   )
 
 ;; which-key changes (to allow paging for key bindings) ;;
