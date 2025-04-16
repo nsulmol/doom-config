@@ -42,7 +42,6 @@
 ;; change `org-directory'. It must be set before org loads!
 (setq org-directory "~/Org/")
 
-
 ;; Whenever you reconfigure a package, make sure to wrap your config in an
 ;; `after!' block, otherwise Doom's defaults may override your settings. E.g.
 ;;
@@ -85,18 +84,23 @@
 ;; Setting visual-line-mode to true everywhere
 (+global-word-wrap-mode +1)
 
+
+;; Org-Roam configuration (taken from[[https:://jethrokuan.github.io/org-roam-guide/][Jethro Kuan org-roam guide]])
+(setq org-roam-directory (file-truename "~/Org/braindump/references"))
+(setq find-file-visit-truename t) ;; support symbolic links
+(org-roam-db-autosync-mode t)
+
 ;; Citar settings
-  (setq org-cite-global-bibliography '("~/Org/braindump/biblio.bib"))
-  (setq org-cite-insert-processor 'citar)
-  (setq org-cite-activate-processor 'citar)
-  (setq citar-bibliography org-cite-global-bibliography)
-  (setq citar-notes-paths '("~/Org/braindump/references/"))
+(setq org-cite-global-bibliography '("~/Org/braindump/biblio.bib"))
+(setq org-cite-insert-processor 'citar)
+(setq org-cite-activate-processor 'citar)
+(setq citar-bibliography org-cite-global-bibliography)
+(setq citar-notes-paths '("~/Org/braindump/references/"))
 ;; ebib settings
-  (setq ebib-preload-bib-files org-cite-global-bibliography)
+(setq ebib-preload-bib-files org-cite-global-bibliography)
 
 ;; reftex settings bibliography (latex biblio)
 (setq reftex-default-bibliography "~/Org/braindump/biblio.bib")
-
 
 ;; Org Settings ;;
 (after! org
@@ -154,10 +158,6 @@
                             (sequence "|" "OKAY(o)" "YES(y)" "NO(n)")))
 
 
-  ;; Org-Roam configuration (taken from[[https:://jethrokuan.github.io/org-roam-guide/][Jethro Kuan org-roam guide]])
-  (setq org-roam-directory (file-truename "~/Org/braindump/"))
-  (setq find-file-visit-truename t) ;; support symbolic links
-  (org-roam-db-autosync-mode t)
 
   ;; Do not have a default image width for latex exporting
   ;; (i.e. use the existing image size, or explici it).
