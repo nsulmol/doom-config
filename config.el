@@ -127,6 +127,9 @@
   ;; Run all python codes in jupyter by default
   (+org-babel-load-jupyter-h 'jupyter-python)
   (org-babel-jupyter-override-src-block "python")
+  ;; Need to disable jupyter pydev weirdness
+  ;; (see https://github.com/emacs-jupyter/jupyter/issues/439)
+  (setenv "PYDEVD_DISABLE_FILE_VALIDATION" "1")
 
   ;; Handle indentation properly in source blocks
   ;; (for some reason, was set to t)
@@ -174,6 +177,7 @@
   (require 'ox-latex)
   (add-to-list 'org-latex-packages-alist '("" "minted"))
   (setq org-latex-listings 'minted)
+  (setq org-latex-src-block-backend 'minted)
 
   (setq org-latex-pdf-process
         '("pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
