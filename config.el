@@ -222,6 +222,7 @@
 
 ;; dap-mode settings
 (after! dap-mode
+  (require 'dap-python)
   (setq dap-python-debugger 'debugpy)
   ;; Feed the path to our venv to dap-mode. Note that dap-mode
   ;; does not do this by default, and expects the user to do
